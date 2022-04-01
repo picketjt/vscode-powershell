@@ -333,6 +333,19 @@ export class DebugSessionFeature extends LanguageClientConsumer
             this.tempSessionDetails = await this.tempDebugProcess.start(`DebugSession-${this.sessionCount++}`);
             utils.writeSessionFile(sessionFilePath, this.tempSessionDetails);
 
+            if (config.attachDotnetDebugger) {
+                // Will wait until the process is started and available before attaching
+                const pid = await this.tempDebugProcess.getPid();
+
+                await vscode.debug.startDebugging(undefined, {
+                    name: "Dotnet Debugger: PSIC Temporary Console",
+                    type: "coreclr",
+                    request: "attach",
+                    processId: pid
+                });
+                this.logger.write(`Attached dotnet debugger to process ${pid}`)
+            }
+
         } else {
             utils.writeSessionFile(sessionFilePath, this.sessionManager.getSessionDetails());
         }

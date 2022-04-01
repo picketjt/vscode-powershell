@@ -136,9 +136,15 @@ export class PowerShellProcess {
 
         // Log that the PowerShell terminal process has been started
         this.log.write("Registering terminal PID log callback");
-        this.consoleTerminal.processId.then((pid) => this.logTerminalPid(pid, pwshName));
-
+        this.consoleTerminal.processId.then((pid) =>
+            this.logTerminalPid(pid, pwshName)
+        );
         return sessionDetails;
+    }
+
+    // Returns the process Id of the consoleTerminal
+    public async getPid() {
+        return await this.consoleTerminal.processId
     }
 
     public showConsole(preserveFocus: boolean) {

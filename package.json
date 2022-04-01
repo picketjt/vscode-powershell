@@ -500,6 +500,11 @@
                 "type": "boolean",
                 "description": "Determines whether a temporary PowerShell Integrated Console is created for each debugging session, useful for debugging PowerShell classes and binary modules.  Overrides the user setting 'powershell.debugging.createTemporaryIntegratedConsole'.",
                 "default": false
+              },
+              "attachDotnetDebugger": {
+                "type": "boolean",
+                "description": "If specified, a C# debug session will be started and attach to the new temporary PSIC. This does nothing unless createTemporaryIntegratedConsole is also specified.",
+                "default": false
               }
             }
           },
